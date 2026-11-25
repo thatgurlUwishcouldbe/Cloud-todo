@@ -1,23 +1,28 @@
 import { useState } from "react";
 
-export default function LoginPage({ onLogin, onShowSignUp }) {
+export default function LoginPage({ onLogin, onShowSignUp, error, submitting }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    onLogin(email, password);
+    await onLogin(email, password);
   }
 
   return (
     <div className="login-card">
-      <h2>Login</h2>
+      <p className="eyebrow">To Do Tasks</p>
+      <h2>Welcome back</h2>
+      <p className="auth-subtitle">Sign in to keep your tasks in sync.</p>
       <form onSubmit={handleSubmit}>
-        <input type="email" placeholder="Email"
+        <label htmlFor="login-email">Email</label>
+        <input id="login-email" type="email" placeholder="you@example.com" autoComplete="email" required
           value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" placeholder="Password"
+        <label htmlFor="login-password">Password</label>
+        <input id="login-password" type="password" placeholder="Your password" autoComplete="current-password" required
           value={password} onChange={(e) => setPassword(e.target.value)} />
-        <button type="submit">Login</button>
+        {error && <p className="error-text" role="alert">{error}</p>}
+        <button type="submit" disabled={submitting}>{submitting ? "Signing in..." : "Sign in"}</button>
       </form>
       <p className="switch-text">
         Don't have an account?{" "}
@@ -26,3 +31,4 @@ export default function LoginPage({ onLogin, onShowSignUp }) {
     </div>
   );
 }
+

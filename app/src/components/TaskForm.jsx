@@ -4,11 +4,14 @@ export default function TaskForm({ task, onSave, onCancel }) {
   const [title, setTitle] = useState(task ? task.title : "");
   const [dueDate, setDueDate] = useState(task ? task.dueDate : "");
   const [priority, setPriority] = useState(task ? task.priority : "Medium");
+  const [saving, setSaving] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (!title.trim()) return;
-    onSave({ title: title.trim(), dueDate, priority });
+    setSaving(true);
+    await onSave({ title: title.trim(), dueDate, priority });
+    setSaving(false);
   }
 
   return (
@@ -28,8 +31,8 @@ export default function TaskForm({ task, onSave, onCancel }) {
           <option>Low</option>
         </select>
         <div className="form-actions">
-          <button type="button" className="cancel-btn" onClick={onCancel}>Cancel</button>
-          <button type="submit" className="save-btn">Save</button>
+          <button type="button" className="cancel-btn" onClick={onCancel} disabled={saving}>Cancel</button>
+          <button type="submit" className="save-btn" disabled={saving}>{saving ? "Saving..." : "Save task"}</button>
         </div>
       </form>
     </div>
