@@ -35,3 +35,7 @@ cd app
 npm install
 npm run dev
 ```
+
+## Try the application
+
+Open the deployed application: https://cloudtodoapp-6a0ac.web.app
