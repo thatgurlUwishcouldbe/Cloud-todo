@@ -1,18 +1,37 @@
-# Cloud-todo
+# Cloud To-Do List
 
-A React task manager with Firebase Authentication and Cloud Firestore.
+A cloud-based task management app built with React, Vite, Firebase Authentication, and Cloud Firestore.
 
-## Run the app
+## Project Pages
 
-The runnable React app is in `app`:
+### Login Page
+Allows registered users to sign in with their email and password.
+
+### Sign-Up Page
+Allows new users to create an account.
+
+### Task Management Page
+Displays the signed-in user's tasks. Users can add, edit, delete, and complete tasks, set a priority and due date, search tasks, and filter them by priority.
+
+## Data and Security
+
+Tasks are stored in Cloud Firestore under each user's account:
+
+`users/{uid}/tasks/{taskId}`
+
+Firestore security rules restrict each user to their own tasks.
+
+## Technologies
+
+- React
+- Vite
+- Firebase Authentication
+- Cloud Firestore
+
+## Run the Project
 
 ```bash
+cd app
 npm install
 npm run dev
 ```
-
-## Firebase setup
-
-The Firebase web configuration is in `app/src/firebase.js` (project ID: `cloudtodoapp-6a0ac`). In Firebase Console, enable **Authentication → Email/Password**, create a **Cloud Firestore** database if needed, then publish the rules in `firestore.rules`.
-
-Tasks are stored under `users/{uid}/tasks`. The rules allow a signed-in user to access tasks only inside their own UID path.
